@@ -9,10 +9,10 @@ from oslc import client
 class TestClient(unittest.TestCase):
 
     def setUp(self):
-        self.server = 'wincqserver'
-        self.projectName = 'Test Rational WarRoom(03MAY2011)'
-        self.user = 'swilbur@us.ibm.com'
-        self.passwd = 'G00duck$'
+        self.server = ''
+        self.projectName = ''
+        self.user = ''
+        self.passwd = ''
         self.jazz = client.OslcClient('https://'+ self.server + ':9445/rtc', self.user, self.passwd )
 
     def tearDown(self):
