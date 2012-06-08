@@ -102,14 +102,17 @@ class OslcClient(object):
         if response.status != 200:
             raise Exception("OslcClient response status != 200 !!!" + response.__str__() + 'content: ' + content.__str__() )
         return content
-  
-    def getUrlDoc(self, url):
-        self.headers['content-type'] = 'text/xml'
-        return self.get( url, self.headers )
 
-    def postRequest(self, url, content, headers ):
-        raise Exception("unimplemented")
+#
+#  POST helpers
+#
+    def post( self, url , content):
+        return self.post( url, content, self.headers )
+    
+    def post( self, url, content, headers ):
+        raise Exception("POST unimplemented")
 
+## Inflight testing of these methods
     def postXML(self, url, contentXML ):
         headers = self.headers
 #        headers = {'Content-type': 'application/x-oslc-cm-change-request+xml', 'accept': 'text/xml'}
@@ -128,7 +131,14 @@ class OslcClient(object):
         response, content = self.http.request(url, 'POST', contentJSON, headers=headers)
         return content
 
-
+#
+#  PUT Helpers
+#
+    def put( self, url , content):
+        return self.post( url, content, self.headers )
+    
+    def put( self, url, content, headers ):
+        raise Exception(" PUT unimplemented")
 
 #
 #  Generic xpath helper
@@ -142,7 +152,7 @@ class OslcClient(object):
 # Grab the services discovery document
 #
     def getRootServicesDoc(self):
-        content = self.getUrlDoc( self.getContextRoot() + '/rootservices' )
+        content = self.get( self.getContextRoot() + '/rootservices' )
         return content
 
 #
@@ -152,7 +162,7 @@ class OslcClient(object):
         catalogElem = self.getElembyXpath( rootservices_str, '/rdf:Description/oslc_cm:cmServiceProviders/@rdf:resource')
         return catalogElem[0]
     def getCMCatalogDoc(self):
-        content = self.getUrlDoc( self.getContextRoot() + '/oslc/workitems/catalog' )
+        content = self.get( self.getContextRoot() + '/oslc/workitems/catalog' )
         return content
     
 ## FIXME: Get on the ServiceProvider with the given name
@@ -161,7 +171,7 @@ class OslcClient(object):
         return catalogElem[0]
     
     def getPAServicesDoc(self, paServicesURL):
-        content = self.getUrlDoc( paServicesURL )
+        content = self.get( paServicesURL )
         return content
     
     def getPAServicesDocbyName(self, paName ):
@@ -202,7 +212,7 @@ class OslcClient(object):
 #
     def getTeamAreas(self, projectId ):
         teamAreas =  {}
-        teamAreasDoc_str    = self.getUrlDoc( self.getContextRoot() + '/process/project-areas/' +  projectId + '/team-areas/' )
+        teamAreasDoc_str    = self.get( self.getContextRoot() + '/process/project-areas/' +  projectId + '/team-areas/' )
 #        print( teamAreasDoc_str )
         # this xpath needs to be absolute to avoid picking up any children team-areas!!
         teamAreaElems      =  self.getElembyXpath( teamAreasDoc_str, '/jp06:team-areas/jp06:team-area' )
@@ -264,7 +274,7 @@ class OslcClient(object):
 #  Wrapper interface to Project Membership, returns hash of hashes
 #   
     def getProjectMembers(self, projectId ):
-        membersDoc_str = self.getUrlDoc( self.getContextRoot() + '/process/project-areas/' +  projectId + '/members' )
+        membersDoc_str = self.get( self.getContextRoot() + '/process/project-areas/' +  projectId + '/members' )
         members = self.getMembers(membersDoc_str)    
         return members
 
@@ -272,7 +282,7 @@ class OslcClient(object):
 #
 #
     def getTeamMembers(self, projectId, teamId ): 
-        membersDoc_str = self.getUrlDoc( self.getContextRoot() + '/process/project-areas/' +  projectId + '/team-areas/' + teamId + '/members' )
+        membersDoc_str = self.get( self.getContextRoot() + '/process/project-areas/' +  projectId + '/team-areas/' + teamId + '/members' )
         members = self.getMembers(membersDoc_str)
         return members
     
@@ -281,14 +291,14 @@ class OslcClient(object):
 #      
 
     def getWorkItem(self, itemNumber):
-        content = self.getUrlDoc( self.getContextRoot() + '/oslc/workitems/'+ itemNumber +'.xml' )
+        content = self.get( self.getContextRoot() + '/oslc/workitems/'+ itemNumber +'.xml' )
         return content
      
     def getQueryResults(self, paName, query):
 #        queryURL = self.getWISimpleQueryURL( self.getPAServicesDocbyName(paName)) + urllib.urlencode( query )
         queryURL = self.getWISimpleQueryURL( self.getPAServicesDocbyName(paName)) + query
         print( queryURL )
-        content = self.getUrlDoc( queryURL )
+        content = self.get( queryURL )
         return content   
 
     def submitWI(self, paName, wiContent):
