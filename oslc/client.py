@@ -94,12 +94,18 @@ class OslcClient(object):
 #
 #  Generic helper to grab a URLs
 #
-    def getUrlDoc(self, url):
-        self.headers['content-type'] = 'text/xml'
-        response, content = self.http.request(url, 'GET', headers=self.headers)
+    def get( url ):
+        return  self.get( url, self.headers )
+
+    def get( url, headers ):
+        response, content = self.http.request(url, 'GET', headers=headers)
         if response.status != 200:
             raise Exception("OslcClient response status != 200 !!!" + response.__str__() + 'content: ' + content.__str__() )
         return content
+  
+    def getUrlDoc(self, url):
+        self.headers['content-type'] = 'text/xml'
+        return self.get( url, self.headers )
 
     def postRequest(self, url, content, headers ):
         raise Exception("unimplemented")
