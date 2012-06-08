@@ -10,7 +10,7 @@ import pprint
 from lxml import etree
 #from xml.dom.minidom import parse, parseString
 from exceptions import Exception
-from jazz import workitem
+from jazz import workitem, projectarea
 
 
 class OslcClient(object):
@@ -94,10 +94,10 @@ class OslcClient(object):
 #
 #  Generic helper to grab a URLs
 #
-    def get( url ):
-        return  self.get( url, self.headers )
+    def get( self, url ):
+        return  self.getH( url, self.headers )
 
-    def get( url, headers ):
+    def getH( self, url, headers ):
         response, content = self.http.request(url, 'GET', headers=headers)
         if response.status != 200:
             raise Exception("OslcClient response status != 200 !!!" + response.__str__() + 'content: ' + content.__str__() )
@@ -107,9 +107,9 @@ class OslcClient(object):
 #  POST helpers
 #
     def post( self, url , content):
-        return self.post( url, content, self.headers )
+        return self.postH( url, content, self.headers )
     
-    def post( self, url, content, headers ):
+    def postH( self, url, content, headers ):
         raise Exception("POST unimplemented")
 
 ## Inflight testing of these methods
@@ -135,9 +135,9 @@ class OslcClient(object):
 #  PUT Helpers
 #
     def put( self, url , content):
-        return self.post( url, content, self.headers )
+        return self.postH( url, content, self.headers )
     
-    def put( self, url, content, headers ):
+    def putH( self, url, content, headers ):
         raise Exception(" PUT unimplemented")
 
 #
@@ -161,6 +161,7 @@ class OslcClient(object):
     def getCMCatalogURL(self, rootservices_str ):
         catalogElem = self.getElembyXpath( rootservices_str, '/rdf:Description/oslc_cm:cmServiceProviders/@rdf:resource')
         return catalogElem[0]
+        
     def getCMCatalogDoc(self):
         content = self.get( self.getContextRoot() + '/oslc/workitems/catalog' )
         return content
@@ -206,6 +207,15 @@ class OslcClient(object):
             itemId = matches.group(1)
             projectAreas[title] = { 'itemId' : itemId, 'details' : details, 'services' : services, 'consumerRegistry' : consumerRegistry}
         return projectAreas
+
+    def getProjectAreaId( self, name ):
+        pa_full_url = self.getElembyXpath( self.getCMCatalogDoc() , '//oslc_disc:ServiceProvider[dc:title=\''+ name + '\']/oslc_disc:details/@rdf:resource')[0]
+        # https://qwin118.ratl.swg.usma.ibm.com:9445/rtc/process/project-areas/_CyLacK6REeGkk943cytsVw
+        # split on '/' and grab the last element in the array which should just be the context id
+        pa_context_id = pa_full_url.split('/')[-1]
+        return pa_context_id
+ #       pa = jazz.projectarea.ProjectArea( name, pa_context_id )
+ #       return pa
 
 #
 #  Return a Hash of Hashes wrapper to Team areas.
