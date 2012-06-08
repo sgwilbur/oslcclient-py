@@ -20,7 +20,7 @@ class OslcClient(object):
         self.__DEBUG_LEVEL__ = 1
         self.base_url = server_url
        
-        self.http = httplib2.Http()
+        self.http = httplib2.Http( disable_ssl_certificate_validation=True )
         self.http.follow_redirects = True
         self.headers = {'content-type': 'text/xml', 'accept': 'application/x-oslc-cm-change-request+xml'}
         

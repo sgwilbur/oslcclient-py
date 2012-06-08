@@ -5,14 +5,20 @@ Created on May 17, 2011
 '''
 import unittest
 from oslc import client
+import pprint, pickle
 
 class TestClient(unittest.TestCase):
 
     def setUp(self):
-        self.server = ''
-        self.projectName = ''
-        self.user = ''
-        self.passwd = ''
+        pkl_file = open('creds.pkl', 'rb')
+        creds = pickle.load(pkl_file)
+        pkl_file.close()
+#        pprint.pprint( creds )
+        
+        self.server = creds['server']
+        self.projectName = creds['projectName']
+        self.user = creds['user']
+        self.passwd = creds['password']
         self.jazz = client.OslcClient('https://'+ self.server + ':9445/rtc', self.user, self.passwd )
 
     def tearDown(self):
@@ -33,7 +39,7 @@ class TestClient(unittest.TestCase):
         pass
 
     def testGetWI(self):
-        print( self.jazz.getWorkItem('1281') )
+        print( self.jazz.getWorkItem('1') )
         pass
 
     def testQuery(self):
