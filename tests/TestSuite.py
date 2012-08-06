@@ -52,9 +52,9 @@ class TestClient(unittest.TestCase):
 <rtc_cm:projectArea rdf:resource="%(server_url)s/oslc/projectareas/%(projectId)s"/>
 <rtc_cm:filedAgainst rdf:resource="%(server_url)s/resource/itemOid/com.ibm.team.workitem.Category/%(filedAgainstId)s"/>
 <dc:type rdf:resource="%(server_url)s/oslc/types/%(projectId)s/com.ibm.rational.utl.request.type.utlrequest"/>
-<rtc_cm:com.ibm.rational.utl.request.attrib.business_justification>This project has a very high visibility inside ING. Depending on the success of the deployment of RTC, other departments will decide to migrate alos to RTC. In addition, other Rational products (RQM, RRC) could be integrated on the platform in the future.</rtc_cm:com.ibm.rational.utl.request.attrib.business_justification>
-<dc:title>Support to assess RTC deployment at ING</dc:title>
-<dc:description>ING is ne of the biggest bank in Belgium and The Netherland.Following a first analysis of their SW development process in 2010, we have started an assessment of the environment in order to prepare the deployment of RTC in the development team responsible for the Home Banking applications.</dc:description>
+<rtc_cm:com.ibm.rational.utl.request.attrib.business_justification>This project has a very high visibility. </rtc_cm:com.ibm.rational.utl.request.attrib.business_justification>
+<dc:title>Support to assess RTC deployment</dc:title>
+<dc:description>Following a first analysis of their SW development process in 2010, we have started an assessment of the environment in order to prepare the deployment of RTC.</dc:description>
 </oslc_cm:ChangeRequest>""" % { 'server_url' : 'https://wincqserver:9445/rtc', 'projectId' : '_v-iPIIO2Ed-ec4_ZoGHE4w', 'filedAgainstId' : '_YehX8IVXEd-0pPi2nnFPlA' }
         print( wiContent)
 
