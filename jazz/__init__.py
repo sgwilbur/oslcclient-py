@@ -42,8 +42,8 @@ class connection(object):
     def get_session( self ):
         return self.session
 
-    def get( self, url ):
-        return self.session.get( url )
+    def get( self, url, headers ):
+        return self.session.get( url, headers=headers )
 
     def put( self, url, data ):
         return self.session.put( url, data )

@@ -12,3 +12,17 @@ Provide a simple starting point to access Jazz from Python, not to provide clien
 parity.
 
 Solve the problems that I have, ymmv.
+
+### Functionality limited to RTC
+
+* Login to a Jazz Server via Standard Form Auth
+* Submit Workitems
+* Get Project Areas
+* Get Categories for a Project Area
+* Get Enumeration Values
+
+### todo items for work I have pending...
+
+* Query Workitems ( working example being added)
+* Edit Workitems
+* Batch edit workitems by query

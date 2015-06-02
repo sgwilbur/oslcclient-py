@@ -1,7 +1,7 @@
 
 # 1
 # Grab the root services catalog
-# => /ccm/rootservices 
+# => /ccm/rootservices
 
 # 2
 # Find the CM Service Provides section and get the WorkItem catalog url
@@ -10,7 +10,7 @@
 # <oslc_cm:cmServiceProviders
 #	      xmlns:oslc_cm="http://open-services.net/xmlns/cm/1.0/"
 #	      rdf:resource="https://anzclm.rationalanz.com.au/ccm/oslc/workitems/catalog" />
-# Extract WI catalog url and follow 
+# Extract WI catalog url and follow
 # => https://anzclm.rationalanz.com.au/ccm/oslc/workitems/catalog
 
 # 3
@@ -27,7 +27,6 @@
 # Extract the workitems services url and follow
 # => https://anzclm.rationalanz.com.au/ccm/oslc/contexts/_6qIDcEKpEeSi3pe7jBZL6Q/workitems/services.xml
 
-
 # 4
 # We are now in the service catalog for a specific project, find the WI creation factory URL
 # xpath ::= /oslc_cm:ServiceDescriptor/oslc_cm:changeRequests/oslc_cm:factory/oslc_cm:url
@@ -37,4 +36,4 @@
 #   <oslc_cm:url>https://anzclm.rationalanz.com.au/ccm/oslc/contexts/_6qIDcEKpEeSi3pe7jBZL6Q/workitems</oslc_cm:url>
 # </oslc_cm:factory>
 #
-# 
+#

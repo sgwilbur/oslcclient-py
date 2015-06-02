@@ -1,0 +1,20 @@
+{
+   "rtc": {
+     "pa1": {
+          "url" : "https://serverA/ccm",
+          "project_name" : "Project Area 1",
+          "project_uuid" : "_AAADRbxAEeSN39svnuDXXX",
+          "user" : "rtc-service-user@server",
+          "password" : "secretpassword",
+          "email" : "rtc-admin@server"
+        },
+     "pa2": {
+          "url" : "https://serverB:9443/ccm",
+          "project_name" : "Project Area 2",
+          "project_uuid" : "_BBBDRbxAEeSN39svnuDXXX",
+          "user" : "rtc-service-user@server",
+          "password" : "secretpasswordB",
+          "email" : "rtc-admin@server"
+        }
+  }
+}
