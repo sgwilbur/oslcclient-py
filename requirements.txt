@@ -1,0 +1,4 @@
+futures==2.2.0
+lxml==3.4.2
+requests==2.5.1
+requests-futures==0.9.4
