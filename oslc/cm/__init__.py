@@ -1,4 +1,7 @@
 
+__all__ = [ 'services' ]
+
+
 # 1
 # Grab the root services catalog
 # => /ccm/rootservices
